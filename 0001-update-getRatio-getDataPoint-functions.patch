@@ -1,0 +1,83 @@
+From e47c2352146816bf533a5b0c315988fcc39cd0c9 Mon Sep 17 00:00:00 2001
+From: "Onesimus.wiafe" <sarpnissi4@gmail.com>
+Date: Tue, 20 Aug 2024 14:01:13 +0000
+Subject: [PATCH] update getRatio, getDataPoint functions
+
+---
+ __pycache__/client3.cpython-311.pyc | Bin 0 -> 1947 bytes
+ client3.py                          |  10 +++++++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+ create mode 100644 __pycache__/client3.cpython-311.pyc
+
+diff --git a/__pycache__/client3.cpython-311.pyc b/__pycache__/client3.cpython-311.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..2f4b96378f425e35ff7fc1ed1c1a304a2877683c
+GIT binary patch
+literal 1947
+zcmaJ>O>7fK6rS<^cpckG9Fouww_1==FeQH=N*aZtkT?~Uh!Ro|S-Dsn&m?SOd(G~;
+z2se>@=wYcixDpbsN+lmEO2q|LRpCe_PCa>%RjidNMe2#0C3@o2H|sb~kjl=?+xKSP
+zeDnTheh!B_5PaWPp0Cyd2>ru^))(GkUjKy=x`zlNIE|F%A1m0CeF{f>3QssiApAE-
+z5s3iQPbDI5_}G5qPamQI7#&o20633eG{61QEc)_^5(GW89%^Y&ZoOp#s&uwy_x>qg
+z>Dnu|c)-Ey?UP{oQELh9KX<=W>E2b_!#sG$ekBq>8d7>_1Uwj34#3GGJ+L1&!6T&f
+zDt$`7a*!URJ+yZU5JB@j;-|eoU?R~zpaI$sw1XZ58vHS^9|NO1W8RJsP(SS<;elNX
+zLF#Nv4<PQ3yx22^f{5Po7?6G^cnPw(gkoK<n9_XV@O8_|O^%MH^^}^vuAA26#Ms2x
+z=#4xzZk^M}*{`>>e<7Z!-I&5I@CtD-Uf&0D4+YRBV7Bep!qy&bSo5{l2-oKK`?=+N
+zYZu?ve8(<s)3?bLzz!l5f(UK#o0!dP@~b>}DHhJi3x-beDJrY!v}|3ca+Xp;iTstC
+z&Qnviba{<tsi9h+ArsY7bGnwbWLGdPJ+<NbEj^c9(TFSL3@t^QvTAO;Vu6lfS6EH!
+zsudGl;YMD!sKH|624F+7sUHB{CTl=KkSPF>+4p9CW-@Wvq=uQ$v((fwd2{5ZrmoV&
+zEHyXa)WnjNCmJ;qpD$dTNv!IIx<-fBbD7kzd6N!XfIB>%NToHJwN8!XZn>c~YR!WE
+z3(S6l-5Qx4r~oOVZGNgAij<DtnJ>ow?(Qqm@`YOehn1VP{!yoUtkykNyzoEM^>BZA
+zzzH9zs7~l;F<uXLmty7Rhe9<tT;+#f13F6W799wT_ln~KV7%hM1n)cvKH^(~V%fwj
+zRgfO8a76x$S~5gm(`9{C_F|S)Wi?B7_!Ze;i1WXon9ud^thbmIldZ|J!Cnhjf&g4%
+zNJcM+$6=W718F)hb(O}y4cVc()M<<LU{C4H?Q>QBkilLNS4t)`s+LVA3;soxMIsjh
+zvTDi4Adiy;@q`S)o-9Zwnl??o!Lfqmog@#LE;oIC#^q+?bFl%JUpMuvD;i+Go^d<#
+zMmnvnj2INIlWDnPQ+9>L%kfLgE}r+Y<XOv1$f_BdOuD=VW#kHgu|{2-bOk6dV!Hko
+ziXTw)9ED?`CNiq!@&;9jD|+>3x}p~&(_qiLSB(b58X4?u^(xRSWGIjbn_%91!FwZ3
+zW#F2m>8Hj=Fvsq%nFZS5FvgAJ2#1P6*6Ju+^jaPDRa?CwqQHrw06#%0;)dwQBMr1m
+zdIdb#K)a*|@gckLf*YuE1KZ(<{Y7c0G*rgl9lLw%_O(0L8mL2<!A)x8dStNFd-qUz
+z?*9DC=*bt+laEh7nfi6=S@@awJp4!3^DgJqLhaOo6J4xD7hguNyog?LqE~Ctt4?IO
+z7Fo8%ZE2<+IRF{&0~@#i0c1w)czyir<LFcBjL+7_XPwZ99WQ-S)*klNqlfLe(&^h5
+z;kwvyJN`7!+B1!{>Y}pK6Kb{DdsduKsuoIBy}m7lZNXkIPn0Jra}Q7dbn)@WPltXx
+h>kLlU2B)3QX-7I=lg?MY-WWjqA&5bPZ#(Se<3CJC<;eg5
+
+literal 0
+HcmV?d00001
+
+diff --git a/client3.py b/client3.py
+index 3fc09b7..5e572fd 100644
+--- a/client3.py
++++ b/client3.py
+@@ -35,14 +35,16 @@ def getDataPoint(quote):
+     stock = quote['stock']
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+-    price = bid_price
++    price = (bid_price + ask_price) / 2
+     return stock, bid_price, ask_price, price
+ 
+ 
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    return 1
++    if (price_b == 0):
++        return
++    return price_a/price_b
+ 
+ 
+ # Main
+@@ -52,8 +54,10 @@ if __name__ == "__main__":
+         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+         """ ----------- Update to get the ratio --------------- """
++        prices = {}
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
++            prices[stock] = price
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
+-- 
+2.44.0.windows.1
+
